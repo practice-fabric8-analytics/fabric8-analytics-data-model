@@ -7,4 +7,4 @@ jobs:
       language: python
       python: 3.6
       install: pip install -U pip
-      script: bash actions-run-tests.sh && make docker-build
+      script: bash qa/actions-run-tests.sh && make docker-build
