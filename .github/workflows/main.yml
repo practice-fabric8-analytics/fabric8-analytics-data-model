@@ -31,7 +31,7 @@ jobs:
         with:
          python-version: 3.6
       - name: Setup virtusl env
-        run: bash actions-run-tests.sh
+        run: bash qa/actions-run-tests.sh
           
           
           
