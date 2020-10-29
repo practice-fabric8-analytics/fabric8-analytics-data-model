@@ -1,9 +1,5 @@
 #!/usr/bin/bash -ex
 
-#SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
-
-#pushd "${SCRIPT_DIR}/.." > /dev/null
-
 COVERAGE_THRESHOLD=90
 
 DOCKER_CMD="docker-compose -f docker-compose-tests.yml"
@@ -50,17 +46,6 @@ export PYTHONPATH
 
 export BAYESIAN_PGBOUNCER_SERVICE_HOST="localhost"
 
-
-echo "*****************************************"
-echo "*** Cyclomatic complexity measurement ***"
-echo "*****************************************"
-radon cc -s -a -i venv src
-
-echo "*****************************************"
-echo "*** Maintainability Index measurement ***"
-echo "*****************************************"
-radon mi -s -i venv src
-
 echo "*****************************************"
 echo "*** Unit tests ***"
 echo "*****************************************"
@@ -70,12 +55,9 @@ if python sanitycheck.py
 then
     python populate_schema.py
     py.test --cov=src/ --cov-report=xml --cov-fail-under=$COVERAGE_THRESHOLD -vv -s test/
-    codecov --token=3c1d9638-afb6-40e6-85eb-3fb193000d4b
 else
     echo "Sanity checks failed"
 fi
 echo "*****************************************"
 echo "*** CI Passed ***"
 
-
-#popd > /dev/null
