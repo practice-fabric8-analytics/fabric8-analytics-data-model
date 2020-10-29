@@ -16,16 +16,16 @@ pass=0
 fail=0
 
 function prepare_venv() {
-    VIRTUALENV=$(which virtualenv)
+    VIRTUALENV="$(which virtualenv)"
     if [ $? -eq 1 ]; then
         # python34 which is in CentOS does not have virtualenv binary
-        VIRTUALENV=$(which virtualenv-3)
+        VIRTUALENV="$(which virtualenv-3)"
     fi
     if [ $? -eq 1 ]; then
         # still don't have virtual environment -> use python3 directly
-        python3 -m venv venv && source venv/bin/activate && python3 "$(which pip3)" install pycodestyle
+        python3 -m venv venv && source venv/bin/activate && python3 "$(which pip3)" install pyflakes
     else
-        ${VIRTUALENV} -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install pycodestyle
+        ${VIRTUALENV} -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install pyflakes
     fi
 }
 
